@@ -3,12 +3,12 @@ import { North } from './North'
 import { Direction } from './Direction'
 import { Position } from '../Position'
 
-export class East implements Direction {
-  turnLeft () {
+export class East extends Direction {
+  turnLeft(): Direction {
     return new North()
   }
 
-  turnRight () {
+  turnRight (): Direction {
     return new South()
   }
 
@@ -19,4 +19,9 @@ export class East implements Direction {
   moveBackward (position: Position): Position {
     return new Position(position.getX() - 1, position.getY())
   }
+
+  isEast(): boolean {
+    return true;
+  }
 }
+

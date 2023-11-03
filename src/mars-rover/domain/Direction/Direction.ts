@@ -1,11 +1,24 @@
 import { Position } from '../Position'
 
-export interface Direction {
-  turnLeft(): Direction;
+export abstract class Direction {
+  abstract turnLeft(): Direction;
+  abstract turnRight(): Direction;
+  abstract moveForward(position: Position): Position;
+  abstract moveBackward(position: Position): Position;
 
-  turnRight(): Direction;
+  isNorth(): boolean {
+    return false
+  }
 
-  moveForward(position: Position): Position;
+  isSouth(): boolean {
+    return false
+  }
 
-  moveBackward(position: Position): Position;
+  isEast(): boolean {
+    return false
+  }
+
+  isWest(): boolean {
+    return false
+  }
 }

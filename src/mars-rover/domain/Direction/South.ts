@@ -3,7 +3,7 @@ import { Direction } from './Direction'
 import { East } from './East'
 import { Position } from '../Position'
 
-export class South implements Direction {
+export class South extends Direction {
   turnLeft () {
     return new East()
   }
@@ -18,5 +18,9 @@ export class South implements Direction {
 
   moveBackward (position: Position): Position {
     return new Position(position.getX(), position.getY() + 1)
+  }
+
+  isSouth(): boolean {
+    return true
   }
 }
