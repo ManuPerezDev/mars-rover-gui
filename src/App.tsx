@@ -1,25 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import RoverLayout from "./components/RoverLayout";
+import {Land} from "./mars-rover/domain/Land";
+import {Position} from "./mars-rover/domain/Position";
+import {Rover} from "./mars-rover/domain/Rover";
+import {North} from "./mars-rover/domain/Direction/North";
 
 function App() {
+  const land = new Land(5, 5)
+  const position = new Position(2, 2)
+  const direction = new North()
+  const rover = new Rover(land, position, direction)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RoverLayout rover={rover}/>
   );
 }
 
