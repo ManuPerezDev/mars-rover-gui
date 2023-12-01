@@ -1,0 +1,52 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "standard",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    // Allows for the parsing of modern ECMAScript features
+    "ecmaVersion": 2020,
+    // Allows for the use of imports
+    "sourceType": "module"
+  },
+  "ignorePatterns": [
+    "build",
+    "node_modules"
+  ],
+  "rules": {
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "linebreak-style": [
+      2,
+      "unix"
+    ],
+    "no-use-before-define": "off",
+    "jsx-quotes": [
+      "error",
+      "prefer-single"
+    ],
+    "space-before-function-paren": "off",
+    "no-useless-constructor": "off"
+  }
+}
