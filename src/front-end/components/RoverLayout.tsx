@@ -1,5 +1,5 @@
 import './RoverLayout.css'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Rover } from '../../mars-rover/src/domain/Rover'
 import Map from './Map'
 import { MoveForward } from '../../mars-rover/src/domain/MoveForward'
@@ -32,10 +32,6 @@ const RoverLayout = ({ rover }: { rover: Rover }) => {
     setRoverState({ position: rover.getPosition(), direction: rover.getDirection() })
   }
 
-  useEffect(() => {
-    setRoverState({ position: rover.getPosition(), direction: rover.getDirection() })
-  }, [])
-
   async function handleSubmit(event: any) {
     if (commands === '') {
       return
@@ -56,6 +52,7 @@ const RoverLayout = ({ rover }: { rover: Rover }) => {
     })
 
     const roverStates = rover.readCommands(domainCommands)
+
     for (const state of roverStates) {
       setRoverState({ position: state.position, direction: state.direction })
     }
