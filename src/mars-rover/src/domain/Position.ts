@@ -1,12 +1,12 @@
 export class Position {
-  constructor (private x: number, private y: number) {
+  constructor(private x: number, private y: number) {
   }
 
-  getY () {
+  getY() {
     return this.y
   }
 
-  getX () {
+  getX() {
     return this.x
   }
 }
