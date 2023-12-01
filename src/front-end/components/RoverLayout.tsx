@@ -1,6 +1,6 @@
 import './Rover.css'
 import { useEffect } from 'react'
-import { Rover } from '../mars-rover/domain/Rover'
+import { Rover } from '../../mars-rover/src/domain/Rover'
 import GridItems from './GridItems'
 
 const RoverLayout = ({ rover }: { rover: Rover }) => {
