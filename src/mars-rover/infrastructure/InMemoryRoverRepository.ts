@@ -1,7 +1,7 @@
 import { Rover } from '../domain/Rover'
 
 export class InMemoryRoverRepository {
-  private rover: Rover | null;
+  private rover: Rover | null
 
   constructor () {
     this.rover = null

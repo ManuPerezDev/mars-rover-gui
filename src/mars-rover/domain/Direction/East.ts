@@ -21,7 +21,6 @@ export class East extends Direction {
   }
 
   isEast(): boolean {
-    return true;
+    return true
   }
 }
-

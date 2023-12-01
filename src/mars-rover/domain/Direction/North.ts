@@ -21,6 +21,6 @@ export class North extends Direction {
   }
 
   isNorth(): boolean {
-    return true;
+    return true
   }
 }
