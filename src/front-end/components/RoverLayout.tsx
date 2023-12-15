@@ -13,22 +13,26 @@ const RoverLayout = ({ rover }: { rover: Rover }) => {
   const [roverState, setRoverState] = useState({ position: rover.getPosition(), direction: rover.getDirection() })
 
   const onClickLeft = async () => {
-    const [state] = rover.move([new TurnLeft()])
+    const states = rover.move([new TurnLeft()])
+    const state = states[states.length - 1]
     setRoverState({ position: state.position, direction: state.direction })
   }
 
   const onClickRight = async () => {
-    const [state] = rover.move([new TurnRight()])
+    const states = rover.move([new TurnRight()])
+    const state = states[states.length - 1]
     setRoverState({ position: state.position, direction: state.direction })
   }
 
   const onClickForward = async () => {
-    const [state] = rover.move([new MoveForward()])
+    const states = rover.move([new MoveForward()])
+    const state = states[states.length - 1]
     setRoverState({ position: state.position, direction: state.direction })
   }
 
   const onClickBackward = async () => {
-    const [state] = rover.move([new MoveBackward()])
+    const states = rover.move([new MoveBackward()])
+    const state = states[states.length - 1]
     setRoverState({ position: state.position, direction: state.direction })
   }
 
