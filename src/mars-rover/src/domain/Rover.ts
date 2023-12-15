@@ -7,7 +7,7 @@ export class Rover {
   constructor(private land: Land, private position: Position, private direction: Direction) {
   }
 
-  readCommands(commands: Command[]) {
+  move(commands: Command[]) {
     const states: { position: Position, direction: Direction }[] = []
     states.push({ position: this.getPosition(), direction: this.getDirection() })
     for (const command of commands) {

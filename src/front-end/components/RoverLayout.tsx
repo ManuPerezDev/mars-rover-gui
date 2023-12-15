@@ -13,23 +13,23 @@ const RoverLayout = ({ rover }: { rover: Rover }) => {
   const [roverState, setRoverState] = useState({ position: rover.getPosition(), direction: rover.getDirection() })
 
   const onClickLeft = async () => {
-    rover.readCommands([new TurnLeft()])
-    setRoverState({ position: rover.getPosition(), direction: rover.getDirection() })
+    const [state] = rover.move([new TurnLeft()])
+    setRoverState({ position: state.position, direction: state.direction })
   }
 
   const onClickRight = async () => {
-    rover.readCommands([new TurnRight()])
-    setRoverState({ position: rover.getPosition(), direction: rover.getDirection() })
+    const [state] = rover.move([new TurnRight()])
+    setRoverState({ position: state.position, direction: state.direction })
   }
 
   const onClickForward = async () => {
-    rover.readCommands([new MoveForward()])
-    setRoverState({ position: rover.getPosition(), direction: rover.getDirection() })
+    const [state] = rover.move([new MoveForward()])
+    setRoverState({ position: state.position, direction: state.direction })
   }
 
   const onClickBackward = async () => {
-    rover.readCommands([new MoveBackward()])
-    setRoverState({ position: rover.getPosition(), direction: rover.getDirection() })
+    const [state] = rover.move([new MoveBackward()])
+    setRoverState({ position: state.position, direction: state.direction })
   }
 
   async function handleSubmit(event: any) {
@@ -51,7 +51,7 @@ const RoverLayout = ({ rover }: { rover: Rover }) => {
       }
     })
 
-    const roverStates = rover.readCommands(domainCommands)
+    const roverStates = rover.move(domainCommands)
 
     for (const state of roverStates) {
       setRoverState({ position: state.position, direction: state.direction })

@@ -15,7 +15,7 @@ describe('Rover should', () => {
     const rover = new Rover(land, initialPosition, initialDirection)
     const commands = [new MoveForward(), new MoveForward()]
 
-    const roverStates = rover.readCommands(commands)
+    const roverStates = rover.move(commands)
 
     expect(roverStates).toHaveLength(3)
     expect(roverStates[0]).toStrictEqual({ position: initialPosition, direction: initialDirection })
@@ -28,7 +28,7 @@ describe('Rover should', () => {
     const rover = new Rover(land, initialPosition, initialDirection)
     const commands = [new MoveForward(), new TurnRight(), new MoveForward()]
 
-    const roverStates = rover.readCommands(commands)
+    const roverStates = rover.move(commands)
 
     expect(roverStates).toHaveLength(4)
     expect(roverStates[0]).toStrictEqual({ position: initialPosition, direction: initialDirection })
