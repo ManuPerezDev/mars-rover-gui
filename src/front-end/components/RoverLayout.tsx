@@ -6,35 +6,21 @@ import { MoveForward } from '../../mars-rover/src/domain/MoveForward'
 import { MoveBackward } from '../../mars-rover/src/domain/MoveBackward'
 import { TurnLeft } from '../../mars-rover/src/domain/TurnLeft'
 import { TurnRight } from '../../mars-rover/src/domain/TurnRight'
-import RoverCell from './RoverCell'
+import { Position } from '../../mars-rover/src/domain/Position'
+import { Direction } from '../../mars-rover/src/domain/Direction/Direction'
+import { Rover2 } from './Rover2'
+
+export type RoverState = {
+  position: Position,
+  direction: Direction
+}
 
 const RoverLayout = ({ rover }: { rover: Rover }) => {
   const [commands, setCommands] = useState('')
-  const [roverState, setRoverState] = useState({ position: rover.getPosition(), direction: rover.getDirection() })
-
-  const onClickLeft = async () => {
-    const states = rover.move([new TurnLeft()])
-    const state = states[states.length - 1]
-    setRoverState({ position: state.position, direction: state.direction })
-  }
-
-  const onClickRight = async () => {
-    const states = rover.move([new TurnRight()])
-    const state = states[states.length - 1]
-    setRoverState({ position: state.position, direction: state.direction })
-  }
-
-  const onClickForward = async () => {
-    const states = rover.move([new MoveForward()])
-    const state = states[states.length - 1]
-    setRoverState({ position: state.position, direction: state.direction })
-  }
-
-  const onClickBackward = async () => {
-    const states = rover.move([new MoveBackward()])
-    const state = states[states.length - 1]
-    setRoverState({ position: state.position, direction: state.direction })
-  }
+  const [roverStates, setRoverRoverStates] = useState<RoverState[]>([{
+    position: rover.getPosition(),
+    direction: rover.getDirection()
+  }])
 
   async function handleSubmit(event: any) {
     if (commands === '') {
@@ -57,9 +43,7 @@ const RoverLayout = ({ rover }: { rover: Rover }) => {
 
     const roverStates = rover.move(domainCommands)
 
-    for (const state of roverStates) {
-      setRoverState({ position: state.position, direction: state.direction })
-    }
+    setRoverRoverStates(roverStates)
     event.preventDefault()
   }
 
@@ -71,12 +55,8 @@ const RoverLayout = ({ rover }: { rover: Rover }) => {
     <div>
       <div className='grid-container'>
         <Map/>
-        <RoverCell state={roverState}/>
+        <Rover2 states={roverStates}/>
       </div>
-      <button onClick={onClickForward}>Forward</button>
-      <button onClick={onClickBackward}>Backward</button>
-      <button onClick={onClickLeft}>Left</button>
-      <button onClick={onClickRight}>Right</button>
       <form onSubmit={handleSubmit}>
         <label>
           Commands:

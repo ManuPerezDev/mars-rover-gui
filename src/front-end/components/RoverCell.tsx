@@ -1,31 +1,43 @@
-import { Direction } from '../../mars-rover/src/domain/Direction/Direction'
-import { Position } from '../../mars-rover/src/domain/Position'
 import './RoverCell.css'
+import { RoverState } from './RoverLayout'
 
 type RoverCellProps = {
-  state: { position: Position, direction: Direction }
+  state: RoverState,
+  index: number,
+  totalStates: number
 }
 
 const RoverCell = (props: RoverCellProps) => {
+  const { state, index, totalStates } = props
+  const { position, direction } = state
+
   let styles: { [key: string]: string } = {
-    top: `${positionYMap[props.state.position.getY()]}px`,
-    left: `${positionXMap[props.state.position.getX()]}px`
+    top: `${positionYMap[position.getY()]}px`,
+    left: `${positionXMap[position.getX()]}px`
   }
-  if (props.state.direction.isNorth()) {
+  if (direction.isNorth()) {
     styles = { ...styles, borderTopColor: 'green' }
-  } else if (props.state.direction.isEast()) {
+  } else if (direction.isEast()) {
     styles = { ...styles, borderRightColor: 'green' }
-  } else if (props.state.direction.isSouth()) {
+  } else if (direction.isSouth()) {
     styles = { ...styles, borderBottomColor: 'green' }
-  } else if (props.state.direction.isWest()) {
+  } else if (direction.isWest()) {
     styles = { ...styles, borderLeftColor: 'green' }
   }
+
+  const className = 'rover-cell'
+  if (index === totalStates - 1) {
+    styles = { ...styles, animation: 'fadein 0.5s forwards', animationDelay: `${index}s` }
+  } else if (index >= 0) {
+    styles = { ...styles, animation: 'fadeinout 1s forwards', animationDelay: `${index}s` }
+  }
   return <div
-    id={`${props.state.position.getX()},${props.state.position.getY()}`}
-    style={styles}
-    className='rover-cell'
+    key={index}
+    id={`${position.getX()},${position.getY()}`}
+    style={{ ...styles }}
+    className={className}
   >
-    {props.state.position.getX()},{props.state.position.getY()}
+    {state.position.getX()},{state.position.getY()}
   </div>
 }
 
