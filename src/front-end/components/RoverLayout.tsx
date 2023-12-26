@@ -1,5 +1,5 @@
 import './RoverLayout.css'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Rover } from '../../mars-rover/src/domain/Rover'
 import Map from './Map'
 import { MoveForward } from '../../mars-rover/src/domain/MoveForward'
@@ -16,19 +16,18 @@ export type RoverState = {
 }
 
 const RoverLayout = ({ rover }: { rover: Rover }) => {
-  const [commands, setCommands] = useState('')
+  const ref = useRef('')
   const [roverStates, setRoverRoverStates] = useState<RoverState[]>([{
     position: rover.getPosition(),
     direction: rover.getDirection()
   }])
-  const [isRoverMoving, setIsRoverMoving] = useState(false)
 
   async function handleSubmit(event: any) {
-    if (commands === '') {
+    if (ref.current === '') {
       return
     }
 
-    const domainCommands = commands.split('').map(command => {
+    const domainCommands = ref.current.split('').map(command => {
       if (command === 'f') {
         return new MoveForward()
       } else if (command === 'b') {
@@ -45,13 +44,12 @@ const RoverLayout = ({ rover }: { rover: Rover }) => {
     const roverStates = rover.move(domainCommands)
 
     setRoverRoverStates(roverStates)
+
     event.preventDefault()
-    setIsRoverMoving(true)
-    setTimeout(() => setIsRoverMoving(false), roverStates.length * 1000)
   }
 
   function handleChange(event: any) {
-    setCommands(event.target.value)
+    ref.current = event.target.value
   }
 
   return (
@@ -63,9 +61,9 @@ const RoverLayout = ({ rover }: { rover: Rover }) => {
       <form onSubmit={handleSubmit}>
         <label>
           Commands:
-          <input type='text' value={commands} onChange={handleChange}/>
+          <input type='text' onChange={handleChange}/>
         </label>
-        <input type='submit' value='Submit' disabled={isRoverMoving}/>
+        <input type='submit' value='Submit' disabled={false}/>
       </form>
     </div>
   )

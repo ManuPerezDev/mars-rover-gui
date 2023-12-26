@@ -25,17 +25,16 @@ const RoverCell = (props: RoverCellProps) => {
     styles = { ...styles, borderLeftColor: 'green' }
   }
 
-  const className = 'rover-cell'
   if (index === totalStates - 1) {
     styles = { ...styles, animation: 'fadein 0.5s forwards', animationDelay: `${index}s` }
   } else if (index >= 0) {
     styles = { ...styles, animation: 'fadeinout 1s forwards', animationDelay: `${index}s` }
   }
   return <div
-    key={index}
+    key={index * Math.random()}
     id={`${position.getX()},${position.getY()}`}
     style={{ ...styles }}
-    className={className}
+    className={'rover-cell'}
   >
     {state.position.getX()},{state.position.getY()}
   </div>
