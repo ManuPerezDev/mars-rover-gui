@@ -21,6 +21,7 @@ const RoverLayout = ({ rover }: { rover: Rover }) => {
     position: rover.getPosition(),
     direction: rover.getDirection()
   }])
+  const [isRoverMoving, setIsRoverMoving] = useState(false)
 
   async function handleSubmit(event: any) {
     if (commands === '') {
@@ -45,6 +46,8 @@ const RoverLayout = ({ rover }: { rover: Rover }) => {
 
     setRoverRoverStates(roverStates)
     event.preventDefault()
+    setIsRoverMoving(true)
+    setTimeout(() => setIsRoverMoving(false), roverStates.length * 1000)
   }
 
   function handleChange(event: any) {
@@ -62,7 +65,7 @@ const RoverLayout = ({ rover }: { rover: Rover }) => {
           Commands:
           <input type='text' value={commands} onChange={handleChange}/>
         </label>
-        <input type='submit' value='Submit'/>
+        <input type='submit' value='Submit' disabled={isRoverMoving}/>
       </form>
     </div>
   )
