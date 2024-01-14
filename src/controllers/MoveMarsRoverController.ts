@@ -1,9 +1,9 @@
 import { MoveMarsRover } from '../MarsRover/application/MoveMarsRover'
 import { Request, Response } from 'express'
-import { MoveForward } from '../../gui/src/mars-rover/src/domain/MoveForward'
-import { MoveBackward } from '../../gui/src/mars-rover/src/domain/MoveBackward'
-import { TurnLeft } from '../../gui/src/mars-rover/src/domain/TurnLeft'
-import { TurnRight } from '../../gui/src/mars-rover/src/domain/TurnRight'
+import { MoveForward } from '../MarsRover/domain/MoveForward'
+import { MoveBackward } from '../MarsRover/domain/MoveBackward'
+import { TurnLeft } from '../MarsRover/domain/TurnLeft'
+import { TurnRight } from '../MarsRover/domain/TurnRight'
 
 export class MoveMarsRoverController {
   constructor(readonly moveMarsRover: MoveMarsRover) {
