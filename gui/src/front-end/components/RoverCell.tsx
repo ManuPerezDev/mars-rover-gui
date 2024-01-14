@@ -12,16 +12,16 @@ const RoverCell = (props: RoverCellProps) => {
   const { position, direction } = state
 
   let styles: { [key: string]: string } = {
-    top: `${positionYMap[position.getY()]}px`,
-    left: `${positionXMap[position.getX()]}px`
+    top: `${positionYMap[position.y]}px`,
+    left: `${positionXMap[position.x]}px`
   }
-  if (direction.isNorth()) {
+  if (direction === 'north') {
     styles = { ...styles, borderTopColor: 'green' }
-  } else if (direction.isEast()) {
+  } else if (direction === 'east') {
     styles = { ...styles, borderRightColor: 'green' }
-  } else if (direction.isSouth()) {
+  } else if (direction === 'south') {
     styles = { ...styles, borderBottomColor: 'green' }
-  } else if (direction.isWest()) {
+  } else if (direction === 'west') {
     styles = { ...styles, borderLeftColor: 'green' }
   }
 
@@ -32,11 +32,11 @@ const RoverCell = (props: RoverCellProps) => {
   }
   return <div
     key={index * Math.random()}
-    id={`${position.getX()},${position.getY()}`}
+    id={`${position.x},${position.y}`}
     style={{ ...styles }}
     className={'rover-cell'}
   >
-    {state.position.getX()},{state.position.getY()}
+    {state.position.x},{state.position.y}
   </div>
 }
 

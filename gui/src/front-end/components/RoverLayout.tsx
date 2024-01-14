@@ -1,25 +1,27 @@
 import './RoverLayout.css'
 import { useRef, useState } from 'react'
-import { Rover } from '../../mars-rover/src/domain/Rover'
 import Map from './Map'
-import { MoveForward } from '../../mars-rover/src/domain/MoveForward'
-import { MoveBackward } from '../../mars-rover/src/domain/MoveBackward'
-import { TurnLeft } from '../../mars-rover/src/domain/TurnLeft'
-import { TurnRight } from '../../mars-rover/src/domain/TurnRight'
-import { Position } from '../../mars-rover/src/domain/Position'
-import { Direction } from '../../mars-rover/src/domain/Direction/Direction'
 import { Rover2 } from './Rover2'
+import { AxiosResponse } from 'axios'
 
 export type RoverState = {
-  position: Position,
-  direction: Direction
+  position: {
+    x: number,
+    y: number
+  },
+  direction: string
 }
 
-const RoverLayout = ({ rover }: { rover: Rover }) => {
+type Props = {
+  rover: RoverState,
+  moveRover: (commands: string) => Promise<AxiosResponse>
+}
+
+const RoverLayout = ({ rover, moveRover }: Props) => {
   const ref = useRef('')
   const [roverStates, setRoverRoverStates] = useState<RoverState[]>([{
-    position: rover.getPosition(),
-    direction: rover.getDirection()
+    position: rover.position,
+    direction: rover.direction
   }])
 
   async function handleSubmit(event: any) {
@@ -27,23 +29,11 @@ const RoverLayout = ({ rover }: { rover: Rover }) => {
       return
     }
 
-    const domainCommands = ref.current.split('').map(command => {
-      if (command === 'f') {
-        return new MoveForward()
-      } else if (command === 'b') {
-        return new MoveBackward()
-      } else if (command === 'l') {
-        return new TurnLeft()
-      } else if (command === 'r') {
-        return new TurnRight()
-      } else {
-        throw new Error('Invalid command')
-      }
+    moveRover(ref.current).then((response: AxiosResponse) => {
+      setRoverRoverStates(response.data)
+    }).catch((error) => {
+      console.log(error)
     })
-
-    const roverStates = rover.move(domainCommands)
-
-    setRoverRoverStates(roverStates)
 
     event.preventDefault()
   }
